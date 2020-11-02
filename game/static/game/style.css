@@ -1,0 +1,13 @@
+.jumbotron {
+    text-align: center;
+}
+
+.vex-canvas {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+hr {
+    width: 420px;
+    border: 1px solid;
+}

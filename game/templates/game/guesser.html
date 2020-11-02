@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Guess the Tune! {{ curr_tune }}{% endblock %}
+
+{% block content %}
+    <script src="https://unpkg.com/vexflow/releases/vexflow-min.js"></script>
+    <script src="https://unpkg.com/vextab@3.0.6/dist/div.prod.js"></script>
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-1">{{ curr_tune }}</h1>
+            <hr>
+            <div class="vextab-auto" width="680" scale="1.0">
+                {{ curr_tune.vextab }}
+            </div>
+            {% if not active %}
+                <hr>
+                <h1>Answer: TODO</h1>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Archive</h3>
+                <ul>
+                    {% for tune in all_tunes %}
+                        <li><a href="{% url 'specific' tune %}">{{ tune }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-6">
+                <h1>Guess!</h1>
+                {% if active %}
+                    {% if user.is_authenticated %}
+                        <p>Where does this tune come from?</p>
+                    {% else %}
+                        <p>You must be logged in to guess.</p>
+                    {% endif %}
+                {% else %}
+                    <p>This challenge is over. You may no longer guess.</p>
+                {% endif %}
+            </div>
+
+            <div class="col">
+                <h3>Successful Guessers</h3>
+                <ul>
+                    {% for user in curr_tune.successful_guessers.all %}
+                        <li><p>{{ user }}</p></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
