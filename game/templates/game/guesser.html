@@ -37,10 +37,6 @@
                         <form action="{% url 'specific' curr_tune %}" method="post">
                             {% csrf_token %}
                             {{ form|crispy }}
-                            {% if incorrect %}
-                                <p class="text-danger">Incorrect guess. Please try again.</p>
-                            {% endif %}
-
                             <input type="submit" class="btn btn-success" value="Submit">
                         </form>
                     {% else %}

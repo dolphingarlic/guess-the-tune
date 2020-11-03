@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from fuzzywuzzy import fuzz
 
 from game.models import Tune
 from game.forms import GuessForm
@@ -13,24 +12,18 @@ def index(request):
 
 def specific(request, date):
     curr_tune = Tune.objects.get(date=date)
-    incorrect = False
+    form = GuessForm(tune=curr_tune)
 
     if request.method == 'POST':
-        form = GuessForm(request.POST)
+        form = GuessForm(request.POST, tune=curr_tune)
         if form.is_valid():
-            guess = form.cleaned_data['guess']
-            token_sort_ratio = fuzz.token_sort_ratio(curr_tune.answer, guess)
-            if token_sort_ratio > 90:
-                assert request.user.is_authenticated
-                curr_tune.successful_guessers.add(request.user)
-            else:
-                incorrect = True
+            assert request.user.is_authenticated
+            curr_tune.successful_guessers.add(request.user)
 
     context = {
         'curr_tune': curr_tune,
         'all_tunes': Tune.objects.order_by('-date'),
         'active': curr_tune == Tune.objects.order_by('-date').first(),
-        'incorrect': incorrect,
-        'form': GuessForm(),
+        'form': form,
     }
     return render(request, 'game/guesser.html', context)
