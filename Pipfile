@@ -9,6 +9,8 @@ verify_ssl = true
 django = "*"
 fuzzywuzzy = "*"
 django-crispy-forms = "*"
+django-heroku = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.9"
