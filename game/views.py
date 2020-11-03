@@ -23,7 +23,6 @@ def specific(request, date):
     context = {
         'curr_tune': curr_tune,
         'all_tunes': Tune.objects.order_by('-date'),
-        'active': curr_tune == Tune.objects.order_by('-date').first(),
         'form': form,
     }
     return render(request, 'game/guesser.html', context)

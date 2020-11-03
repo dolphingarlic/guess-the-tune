@@ -32,22 +32,15 @@
                 
                 {% if user in curr_tune.successful_guessers.all %}
                     <p>Congratulations! You've correctly guessed the tune.</p>
-                {% elif active %}
-                    {% if user.is_authenticated %}
-                        <form action="{% url 'specific' curr_tune %}" method="post">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <input type="submit" class="btn btn-success" value="Submit">
-                        </form>
-                    {% else %}
-                        <p>You must be logged in to guess.</p>
-                    {% endif %}
-                {% else %}
-                    <p>This challenge is over. You may no longer guess.</p>
-                {% endif %}
-
-                {% if user in curr_tune.successful_guessers.all or not active %}
                     <p>The correct answer was: <b>{{ curr_tune.answer }}</b>.</p>
+                {% elif user.is_authenticated %}
+                    <form action="{% url 'specific' curr_tune %}" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="submit" class="btn btn-success" value="Submit">
+                    </form>
+                {% else %}
+                    <p>You must be logged in to guess.</p>
                 {% endif %}
             </div>
 
