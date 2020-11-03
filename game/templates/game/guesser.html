@@ -13,17 +13,13 @@
             <div class="vextab-auto" width="680" scale="1.0">
                 {{ curr_tune.vextab }}
             </div>
-            {% if not active %}
-                <hr>
-                <h1>Answer: TODO</h1>
-            {% endif %}
         </div>
     </div>
 
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>Archive</h3>
+                <h1>Archive</h1>
                 <ul>
                     {% for tune in all_tunes %}
                         <li><a href="{% url 'specific' tune %}">{{ tune }}</a></li>
@@ -33,19 +29,32 @@
 
             <div class="col-6">
                 <h1>Guess!</h1>
-                {% if active %}
+                
+                {% if user in curr_tune.successful_guessers.all %}
+                    <p>Congratulations! You've correctly guessed the tune.</p>
+                {% elif active %}
                     {% if user.is_authenticated %}
-                        <p>Where does this tune come from?</p>
+                        <form>
+                            <div class="form-group">
+                                <label for="guess">Where does this tune come from?</label>
+                                <input type="text" class="form-control" id="guess" placeholder="Enter your guess">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     {% else %}
                         <p>You must be logged in to guess.</p>
                     {% endif %}
                 {% else %}
                     <p>This challenge is over. You may no longer guess.</p>
                 {% endif %}
+
+                {% if user in curr_tune.successful_guessers.all or not active %}
+                    <p>The correct answer was: <b>{{ curr_tune.answer }}</b>.</p>
+                {% endif %}
             </div>
 
             <div class="col">
-                <h3>Successful Guessers</h3>
+                <h1>Successful Guessers</h1>
                 <ul>
                     {% for user in curr_tune.successful_guessers.all %}
                         <li><p>{{ user }}</p></li>
