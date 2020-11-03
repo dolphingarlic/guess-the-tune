@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}Guess the Tune! {{ curr_tune }}{% endblock %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <script src="https://unpkg.com/vextab@3.0.6/dist/div.prod.js"></script>
@@ -35,11 +36,7 @@
                     {% if user.is_authenticated %}
                         <form action="{% url 'specific' curr_tune %}" method="post">
                             {% csrf_token %}
-                            <div class="form-group">
-                                <label for="guess">Where does this tune come from?</label>
-                                <input type="text" class="form-control" name="guess"
-                                       id="guess" placeholder="Enter your guess" required>
-                            </div>
+                            {{ form|crispy }}
                             {% if incorrect %}
                                 <p class="text-danger">Incorrect guess. Please try again.</p>
                             {% endif %}
