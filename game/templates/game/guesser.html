@@ -3,7 +3,6 @@
 {% block title %}Guess the Tune! {{ curr_tune }}{% endblock %}
 
 {% block content %}
-    <script src="https://unpkg.com/vexflow/releases/vexflow-min.js"></script>
     <script src="https://unpkg.com/vextab@3.0.6/dist/div.prod.js"></script>
 
     <div class="jumbotron">
@@ -34,12 +33,18 @@
                     <p>Congratulations! You've correctly guessed the tune.</p>
                 {% elif active %}
                     {% if user.is_authenticated %}
-                        <form>
+                        <form action="{% url 'specific' curr_tune %}" method="post">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <label for="guess">Where does this tune come from?</label>
-                                <input type="text" class="form-control" id="guess" placeholder="Enter your guess">
+                                <input type="text" class="form-control" name="guess"
+                                       id="guess" placeholder="Enter your guess" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            {% if incorrect %}
+                                <p class="text-danger">Incorrect guess. Please try again.</p>
+                            {% endif %}
+
+                            <input type="submit" class="btn btn-primary" value="Submit">
                         </form>
                     {% else %}
                         <p>You must be logged in to guess.</p>
@@ -57,7 +62,7 @@
                 <h1>Successful Guessers</h1>
                 <ul>
                     {% for user in curr_tune.successful_guessers.all %}
-                        <li><p>{{ user }}</p></li>
+                        <li><span>{{ user }}</span></li>
                     {% endfor %}
                 </ul>
             </div>
