@@ -8,7 +8,7 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h1 class="display-1">{{ curr_tune }}</h1>
+            <h1 class="display-4">{{ curr_tune }}</h1>
             <hr>
             <div class="vextab-auto" width="680" scale="1.0">
                 {{ curr_tune.vextab }}
@@ -18,7 +18,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-md">
                 <h1>Archive</h1>
                 <ul>
                     {% for tune in all_tunes %}
@@ -27,7 +27,7 @@
                 </ul>
             </div>
 
-            <div class="col-6">
+            <div class="col-md-6">
                 <h1>Guess!</h1>
                 
                 {% if user in curr_tune.successful_guessers.all %}
@@ -44,7 +44,7 @@
                 {% endif %}
             </div>
 
-            <div class="col">
+            <div class="col-md">
                 <h1>Successful Guessers</h1>
                 <ul>
                     {% for user in curr_tune.successful_guessers.all %}
