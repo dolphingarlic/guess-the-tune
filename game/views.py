@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from game.models import Tune
@@ -11,7 +11,7 @@ def index(request):
 
 
 def specific(request, date):
-    curr_tune = Tune.objects.get(date=date)
+    curr_tune = get_object_or_404(Tune, date=date)
     form = GuessForm(tune=curr_tune)
 
     if request.method == 'POST':

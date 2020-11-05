@@ -18,16 +18,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md">
-                <h1>Archive</h1>
-                <ul>
-                    {% for tune in all_tunes %}
-                        <li><a href="{% url 'specific' tune %}">{{ tune }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div class="col-md-6">
+            <div class="col-lg-6">
                 <h1>Guess!</h1>
                 
                 {% if user in curr_tune.successful_guessers.all %}
@@ -44,11 +35,20 @@
                 {% endif %}
             </div>
 
-            <div class="col-md">
+            <div class="col-lg">
                 <h1>Successful Guessers</h1>
                 <ul>
                     {% for user in curr_tune.successful_guessers.all %}
                         <li><span>{{ user }}</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-lg order-lg-first">
+                <h1>Archive</h1>
+                <ul>
+                    {% for tune in all_tunes %}
+                        <li><a href="{% url 'specific' tune %}">{{ tune }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
