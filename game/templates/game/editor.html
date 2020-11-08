@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Tune Editor{% endblock %}
+
+{% block content %}
+    <script src="https://unpkg.com/vextab@3.0.6/dist/div.prod.js"></script>
+
+    <div id="editor" class="container">
+        <div class="vextab-auto" width="680" scale="1.0" editor="true">tabstave notation=true tablature=false</div>
+    </div>
+{% endblock %}

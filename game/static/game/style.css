@@ -11,6 +11,10 @@
     image-rendering: pixelated;
 }
 
+#editor {
+    text-align: center;
+}
+
 hr {
     width: 50px;
     border: 2px solid;

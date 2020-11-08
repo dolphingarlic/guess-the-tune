@@ -11,6 +11,6 @@ class GuessForm(forms.Form):
 
     def clean(self):
         token_set_ratio = fuzz.token_set_ratio(self.tune.answer, self.cleaned_data['guess'])
-        if token_set_ratio < 85:
+        if token_set_ratio < 90:
             raise forms.ValidationError('Incorrect guess. Please try again.')
         return self.cleaned_data

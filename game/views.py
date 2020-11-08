@@ -26,3 +26,7 @@ def specific(request, date):
         'form': form,
     }
     return render(request, 'game/guesser.html', context)
+
+
+def editor(request):
+    return render(request, 'game/editor.html');
