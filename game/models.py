@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Tune(models.Model):
     vextab = models.TextField()
     answer = models.CharField(max_length=100)
+    link = models.URLField(max_length=100)
     date = models.DateField(auto_now_add=True, primary_key=True)
 
     successful_guessers = models.ManyToManyField(User, blank=True)

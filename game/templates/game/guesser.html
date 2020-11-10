@@ -23,7 +23,7 @@
                 
                 {% if user in curr_tune.successful_guessers.all %}
                     <p>Congratulations! You've correctly guessed the tune.</p>
-                    <p>The correct answer was: <b>{{ curr_tune.answer }}</b>.</p>
+                    <p>This tune came from: <a href="{{ curr_tune.link }}"><b>{{ curr_tune.answer }}</b></a>.</p>
                 {% elif user.is_authenticated %}
                     <form action="{% url 'specific' curr_tune %}" method="post">
                         {% csrf_token %}
